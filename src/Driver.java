@@ -1,6 +1,7 @@
 //Lydia's graph code
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -10,6 +11,13 @@ public class Driver {
 		g.printGraph();
 		System.out.println("\n\nThe distance between \'Graham\' and \'Navajo\' is " +
 				g.getDistance("Graham", "Navajo"));
+		
+		ArrayList<String> nb = g.getNeighbors("Graham");
+		System.out.print("Graham county has the following neighbors: ");
+		for(int i = 0; i < nb.size(); i++){
+			System.out.print(nb.get(i) + " ");
+		}
+		System.out.println();
 	}
 }
 
@@ -55,6 +63,20 @@ class Graph{
 		
 		return dist;
 		
+	}
+	
+	public ArrayList<String> getNeighbors(String county){
+		ArrayList<String> neighbors = new ArrayList<String>();
+		//get county index
+		int index = getVertex(county);
+		//go through the matrix and find the neighbors
+		for(int i = 0; i < 15; i++){
+			if(matrix[i][index] != Integer.MAX_VALUE && i!=index){
+				neighbors.add(counties[i]);
+			}
+		}
+		
+		return neighbors;
 	}
 	
 	public void printGraph(){
