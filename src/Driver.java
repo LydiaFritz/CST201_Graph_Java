@@ -8,6 +8,8 @@ public class Driver {
 	public static void main(String[] args) throws FileNotFoundException {
 		Graph g = new Graph();
 		g.printGraph();
+		System.out.println("\n\nThe distance between \'Graham\' and \'Navajo\' is " +
+				g.getDistance("Graham", "Navajo"));
 	}
 }
 
@@ -18,6 +20,14 @@ class Graph{
 			"Maricopa"};
 	
 	private int [][] matrix = new int[15][15];
+	
+	private int getVertex(String s){
+		for(int i = 0; i < counties.length; i++){
+			if(counties[i].equals(s))
+				return i;
+		}
+		return -1;
+	}
 	
 	public Graph() throws FileNotFoundException{
 		//load graph
@@ -32,6 +42,18 @@ class Graph{
 			}
 		}
 		fin.close();
+		
+	}
+	
+	//get distance between connected pairs of vertices
+	public int getDistance(String countyA, String countyB){
+		//find the two vertices
+		int county1 = getVertex(countyA);
+		int county2 = getVertex(countyB);
+		
+		int dist = matrix[county1][county2];
+		
+		return dist;
 		
 	}
 	
